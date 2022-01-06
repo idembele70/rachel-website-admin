@@ -13,12 +13,15 @@ import Login from "./pages/login/Login";
 import { useSelector } from "react-redux";
 function App() {
   const { currentUser } = useSelector(state => state.user)
-  const admin = currentUser.isAdmin
+  const admin = currentUser?.isAdmin || ""
+  if(!admin) return <Redirect to="/login" />
   return (
     <Router>
-        {admin ? <Redirect to="/" /> : <Route exact path="/login" component={Login} />}
       <Switch>
-        {admin && <>
+        <Route exact path="/login">
+          {admin ? <Redirect to="/" /> : <Login />}
+        </Route>
+        <>
           <Topbar />
           <div className="container">
             <Sidebar />
@@ -44,7 +47,7 @@ function App() {
               <NewProduct />
             </Route>
           </div>
-        </>}
+        </>
       </Switch>
     </Router>
   );
