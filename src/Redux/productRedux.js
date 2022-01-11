@@ -41,7 +41,39 @@ const productSlice = createSlice({
       Object.assign(state, {
         isFetching: false,
         error: true
-      })
+      }),
+    // UPDATE BY ID
+    updateProductStart: (state) => Object.assign(state, {
+      isFetching: true,
+      error: false
+    }),
+    updateProductSuccess: (state, action) => {
+      state.isFetching = false
+      state.products[state.products.findIndex(item => item._id === action.payload.product._id)] = action.payload.product
+      state.error = false
+    },
+    updateProductFailure: (state) =>
+      Object.assign(state, {
+        isFetching: false,
+        error: true
+      }),
+    // ADD ONE PRODUCT
+    addProductStart: (state) =>
+      Object.assign(state, {
+        isFetching: true,
+        error: false
+      }),
+    addProductSuccess: (state, { payload }) =>
+      Object.assign(state, {
+        isFetching: false,
+        products: [...state.products, payload],
+        error: false,
+      }),
+    addProductFailure: (state) =>
+      Object.assign(state, {
+        isFetching: false,
+        error: true,
+      }),
   }
 })
 
@@ -51,5 +83,11 @@ export const
     getProductFailure,
     deleteProductStart,
     deleteProductSuccess,
-    deleteProductError } = productSlice.actions
+    deleteProductError,
+    updateProductFailure,
+    updateProductStart,
+    updateProductSuccess,
+    addProductFailure,
+    addProductStart,
+    addProductSuccess } = productSlice.actions
 export default productSlice.reducer

@@ -14,9 +14,9 @@ import { useSelector } from "react-redux";
 function App() {
   const { currentUser } = useSelector(state => state.user)
   const admin = currentUser?.isAdmin || ""
-  if(!admin) return <Redirect to="/login" />
   return (
     <Router>
+      {!admin && <Redirect to="/login" />}
       <Switch>
         <Route exact path="/login">
           {admin ? <Redirect to="/" /> : <Login />}
@@ -40,11 +40,11 @@ function App() {
             <Route exact path="/products">
               <ProductList />
             </Route>
+            <Route exact path="/newProduct">
+              <NewProduct />
+            </Route>
             <Route exact path="/product/:productId">
               <Product />
-            </Route>
-            <Route exact path="/newproduct">
-              <NewProduct />
             </Route>
           </div>
         </>

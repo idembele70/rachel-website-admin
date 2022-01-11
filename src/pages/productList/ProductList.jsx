@@ -1,9 +1,8 @@
 import "./productList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProducts } from "../../Redux/apiCalls";
 
@@ -26,7 +25,7 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={`https://lh3.google.com/u/0/d/${params.row.img}`} alt="" />
+            <img className="productListImg" src={`${params.row.img}`} alt="" />
             {params.row.title}
           </div>
         );
@@ -72,7 +71,7 @@ export default function ProductList() {
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}
-        pageSize={8}
+        pageSize={15}
         checkboxSelection
       />
     </div>

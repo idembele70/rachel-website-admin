@@ -1,19 +1,10 @@
-import "./sidebar.css";
 import {
-  LineStyle,
-  Timeline,
-  TrendingUp,
-  PermIdentity,
-  Storefront,
-  AttachMoney,
-  BarChart,
-  MailOutline,
-  DynamicFeed,
-  ChatBubbleOutline,
-  WorkOutline,
-  Report,
+  AddCircleOutlineOutlined, AttachMoney,
+  BarChart, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PermIdentity, Report, Storefront, Timeline,
+  TrendingUp, WorkOutline
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import "./sidebar.css";
 
 export default function Sidebar() {
   return (
@@ -51,6 +42,12 @@ export default function Sidebar() {
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
                 Products
+              </li>
+            </Link>
+            <Link to="/newproduct" className="link">
+              <li className="sidebarListItem">
+                <AddCircleOutlineOutlined className="sidebarIcon" />
+                Add Product
               </li>
             </Link>
             <li className="sidebarListItem">
