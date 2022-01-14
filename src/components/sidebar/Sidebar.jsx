@@ -50,6 +50,12 @@ export default function Sidebar() {
                 Add Product
               </li>
             </Link>
+            <Link to="/newcategory" className="link">
+              <li className="sidebarListItem">
+                <AddCircleOutlineOutlined className="sidebarIcon" />
+                Add Category
+              </li>
+            </Link>
             <li className="sidebarListItem">
               <AttachMoney className="sidebarIcon" />
               Transactions

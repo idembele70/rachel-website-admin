@@ -88,35 +88,35 @@ export default function NewProduct() {
       <h1 className="addProductTitle">Nouveau Produit</h1>
       <form className="addProductForm">
         <div className="addProductItem">
-          <label>Nom</label>
+          <label htmlFor="title">Nom</label>
           <input name="title" type="text" value={title} onChange={handleChange} />
         </div>
         <div className="addProductItem">
-          <label>Description</label>
+          <label htmlFor="description">Description</label>
           <textarea name="description" cols="10" rows="3" value={description} onChange={handleChange} ></textarea>
         </div>
         <div className="addProductItem">
-          <label>Categories{" (separer par un virgule)"}</label>
+          <label htmlFor="categories">Categories{" (separer par un virgule)"}</label>
           <textarea name="categories" cols="10" rows="3" value={categories} onChange={handleChange} ></textarea>
         </div>
         <div className="addProductItem">
-          <label>Image</label>
+          <label htmlFor="img">Image</label>
           <input name="img" type="file" accept=".jpg,.png,.jpeg" onChange={handleChange} />
         </div>
         <div className="addProductItem">
-          <label>Prix</label>
+          <label htmlFor="price">Prix</label>
           <input name="price" type="number" value={price} onChange={handleChange} />
         </div>
         <div className="addProductItem">
-          <label>Tailles{" (separer par un virgule)"}</label>
+          <label htmlFor="sizes">Tailles{" (separer par un virgule)"}</label>
           <textarea name="sizes" cols="10" rows="3" value={sizes} onChange={handleChange} ></textarea>
         </div>
         <div className="addProductItem">
-          <label>Couleurs{" (separer par un virgule)"}</label>
+          <label htmlFor="colors">Couleurs{" (separer par un virgule)"}</label>
           <textarea name="colors" cols="10" rows="3" value={colors} onChange={handleChange} ></textarea>
         </div>
         <div className="addProductItem">
-          <label>quantité</label>
+          <label htmlFor="quantity">quantité</label>
           <input name="quantity" value={quantity} onChange={handleChange} />
         </div>
         <button className="addProductButton" onClick={handleCreate}>Creé</button>
