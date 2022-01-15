@@ -9,6 +9,9 @@ import {
   deleteCategoryStart,
   deleteCategorySuccess,
   deleteCategoryFailure,
+  getCategoryStart,
+  getCategorySuccess,
+  getCategoryFailure,
 } from "./categoryRedux"
 import { publicRequest, userRequest } from '../requestMethod'
 import {
@@ -25,6 +28,8 @@ import {
   updateProductStart,
   updateProductSuccess,
 } from "./productRedux"
+
+//  LOGIN user
 export const login = async (dispatch, user) => {
   dispatch(loginStart())
   try {
@@ -34,8 +39,10 @@ export const login = async (dispatch, user) => {
     dispatch(loginFailure())
   }
 }
+//  LOGIN user endpoint
 
 
+//  GET product
 export const getProducts = async (dispatch) => {
   dispatch(getProductStart())
   try {
@@ -45,7 +52,9 @@ export const getProducts = async (dispatch) => {
     dispatch(getProductFailure)
   }
 }
+//  GET product endpoint
 
+//  DELETE product
 export const deleteProduct = async (dispatch, id) => {
   dispatch(deleteProductStart())
   try {
@@ -55,7 +64,9 @@ export const deleteProduct = async (dispatch, id) => {
     dispatch(deleteProductError)
   }
 }
+//  DELETE product endpoint
 
+//  UPDATE product
 export const updateProduct = async (dispatch, product, id) => {
   dispatch(updateProductStart())
   try {
@@ -65,7 +76,8 @@ export const updateProduct = async (dispatch, product, id) => {
     dispatch(updateProductFailure())
   }
 }
-
+//  UPDATE product endpoint
+//  ADD product 
 export const addProduct = async (dispatch, id) => {
   dispatch(addProductStart())
   try {
@@ -75,6 +87,7 @@ export const addProduct = async (dispatch, id) => {
     dispatch(addProductFailure())
   }
 }
+//  ADD product endpoint
 
 //  ADD category
 export const addCategory = async (dispatch, category) => {
@@ -88,24 +101,39 @@ export const addCategory = async (dispatch, category) => {
     dispatch(addCategoryFailure())
   }
 }
-// UPDATE Product endpoint
+//  ADD category endpoint
+
+// UPDATE category
 export const updateCategory = async (dispatch, newInformation, id) => {
   dispatch(updateCategoryStart())
   try {
-    const { data } = await userRequest.put(`category/new/:${id}`, newInformation)
+    const { data } = await userRequest.put(`category/${id}`, newInformation)
     dispatch(updateCategorySuccess(data))
   } catch (error) {
     dispatch(updateCategoryFailure())
   }
 }
+// UPDATE category endpoint
+// GET category
+export const getCategories = async (dispatch) => {
+  dispatch(getCategoryStart())
+  try {
+    const { data } = await userRequest.get("/category/")
+    dispatch(getCategorySuccess(data))
+  } catch (error) {
+    dispatch(getCategoryFailure())
+  }
+}
+// GET category endpoint
 
-// DELETE product endpoint
+// DELETE category
 export const deleteCategory = async (dispatch, id) => {
   dispatch(deleteCategoryStart())
   try {
-    await userRequest.delete(`category/new/${id}`)
+    await userRequest.delete(`category/${id}`)
     dispatch(deleteCategorySuccess(id))
   } catch (error) {
     dispatch(deleteCategoryFailure())
   }
 }
+// DELETE category endpoint

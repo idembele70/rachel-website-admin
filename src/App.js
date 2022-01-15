@@ -12,6 +12,8 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import NewCategory from "./pages/newCategory/NewCategory";
 import Login from "./pages/login/Login";
 import { useSelector } from "react-redux";
+import CategoryList from "./pages/categoryList/CategoryList";
+import Category from "./pages/category/Category";
 function App() {
   const { currentUser } = useSelector(state => state.user)
   const admin = currentUser?.isAdmin || ""
@@ -41,6 +43,9 @@ function App() {
             <Route exact path="/products">
               <ProductList />
             </Route>
+            <Route exact path="/categories">
+              <CategoryList />
+            </Route>
             <Route exact path="/newProduct">
               <NewProduct />
             </Route>
@@ -49,6 +54,9 @@ function App() {
             </Route>
             <Route exact path="/product/:productId">
               <Product />
+            </Route>
+            <Route exact path="/category/:categoryId">
+              <Category />
             </Route>
           </div>
         </>

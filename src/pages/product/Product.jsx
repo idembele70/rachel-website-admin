@@ -25,7 +25,6 @@ export default function Product() {
         colors,
         price
     })
-    const [file, setFile] = useState("")
 
     const handleUpdate = (e) => {
         const { name, value, files } = e.target

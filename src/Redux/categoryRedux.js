@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 const category = createSlice({
   name: "category",
   initialState: {
-    isFetching: false,
     categories: [],
+    isFetching: false,
     error: false
   },
   reducers: {
-    //ADD a new cart
+    //ADD a new category
     addCategoryStart: (state) =>
       Object.assign(state, { isFetching: true, error: false }),
     addCategorySuccess: (state, { payload }) =>
@@ -21,6 +21,7 @@ const category = createSlice({
           isFetching: false,
           error: true
         }),
+    //ADD new category 
     //UPDATE one category endpoint
     updateCategoryStart: (state) =>
       Object.assign(state, { isFetching: true })
@@ -36,7 +37,7 @@ const category = createSlice({
           isFetching: false,
           error: true
         }),
-    // DELETE one category endpoint
+    // DELETE one category
     deleteCategoryStart: (state) =>
       Object.assign(state, { isFetching: true })
     ,
@@ -47,6 +48,23 @@ const category = createSlice({
     }
     ),
     deleteCategoryFailure: (state) =>
+      Object.assign(state,
+        {
+          isFetching: false,
+          error: true
+        }),
+    // DELETE one category endpoint
+    // GET all product
+    getCategoryStart: (state) =>
+      Object.assign(state, { isFetching: true })
+    ,
+    getCategorySuccess: (state, { payload }) => Object.assign(
+      state, {
+      isFetching: false,
+      categories: payload
+    }
+    ),
+    getCategoryFailure: (state) =>
       Object.assign(state,
         {
           isFetching: false,
@@ -66,4 +84,7 @@ export const {
   deleteCategoryStart,
   deleteCategorySuccess,
   deleteCategoryFailure,
+  getCategoryStart,
+  getCategorySuccess,
+  getCategoryFailure,
 } = category.actions

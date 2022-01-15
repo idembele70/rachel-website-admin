@@ -2,11 +2,13 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/
 import react from "react"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 import app from "../../firebase"
 import { addCategory } from "../../Redux/apiCalls"
 import "./newCategory.css"
 export default function NewCategory() {
   const [data, setData] = useState({ name: "", img: "", isActive: false })
+  const history = useHistory()
   const handleUpdate = (e) => {
     const { name, value, files, checked } = e.target
     switch (name) {
@@ -17,7 +19,6 @@ export default function NewCategory() {
           setData({ ...data, [name]: checked })
           break;
           default:
-        console.log("in default")
         setData({ ...data, [name]: value })
         break;
     }
@@ -62,12 +63,12 @@ export default function NewCategory() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const newCategory = {...data, img: downloadURL}
           addCategory(dispatch, newCategory)
-        }).finally(()=>setData({ name: "", img: "", isActive: false }));
+        }).finally(()=> history.go(0) /* setData({ name: "", img: "", isActive: false }) */);
       }
     );
   }
 
-  
+
 
   return (
     <div className="newCategory">

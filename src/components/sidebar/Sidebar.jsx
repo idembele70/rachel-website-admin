@@ -44,6 +44,12 @@ export default function Sidebar() {
                 Products
               </li>
             </Link>
+            <Link to="/categories" className="link">
+              <li className="sidebarListItem">
+                <Storefront className="sidebarIcon" />
+                Categories
+              </li>
+            </Link>
             <Link to="/newproduct" className="link">
               <li className="sidebarListItem">
                 <AddCircleOutlineOutlined className="sidebarIcon" />
