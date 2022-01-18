@@ -68,8 +68,6 @@ export default function NewCategory() {
     );
   }
 
-
-
   return (
     <div className="newCategory">
       <h1 className="addCategoryTitle">Nouvelles Categorie</h1>

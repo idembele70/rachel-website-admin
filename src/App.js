@@ -24,9 +24,9 @@ function App() {
         <Route exact path="/login">
           {admin ? <Redirect to="/" /> : <Login />}
         </Route>
-        <>
+        <div className="appContainer">
           <Topbar />
-          <div className="container">
+          <div className="main">
             <Sidebar />
             <Route exact path="/">
               <Home />
@@ -59,7 +59,7 @@ function App() {
               <Category />
             </Route>
           </div>
-        </>
+        </div>
       </Switch>
     </Router>
   );

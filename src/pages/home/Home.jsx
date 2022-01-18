@@ -1,15 +1,16 @@
+import { useEffect, useMemo, useState } from "react";
 import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
-import "./home.css";
-import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
-import { useEffect, useMemo, useState } from "react";
+import WidgetSm from "../../components/widgetSm/WidgetSm";
 import { userRequest } from "../../requestMethod";
+import "./home.css";
 
 export default function Home() {
   const [userData, setUserData] = useState([])
   const MONTHS = useMemo(() => ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Agu", "Sep", "Oct", "Nov", "Dec"]
     , [])
+
   useEffect(() => {
     (async () => {
       try {
@@ -21,6 +22,7 @@ export default function Home() {
           )
         )
       } catch (error) {
+        console.log("Error while fetching data in Home.jsx:", error)
       }
     })()
   }, [MONTHS])

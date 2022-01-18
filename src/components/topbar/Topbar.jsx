@@ -1,8 +1,16 @@
+import { Language, Settings, ExitToApp } from "@material-ui/icons";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { logout } from "../../Redux/apiCalls";
 import "./topbar.css";
-import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 
 export default function Topbar() {
+  const dispatch = useDispatch()
+  const handleLogout = () => {
+    logout(dispatch)
+  }
+
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -11,8 +19,7 @@ export default function Topbar() {
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">
-            <NotificationsNone />
-            <span className="topIconBadge">2</span>
+            <ExitToApp onClick={handleLogout} />
           </div>
           <div className="topbarIconContainer">
             <Language />

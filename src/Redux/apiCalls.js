@@ -1,4 +1,11 @@
-import { loginStart, loginSuccess, loginFailure } from "./userRedux"
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  logoutStart,
+  logoutSuccess,
+  logoutFailure
+} from "./userRedux"
 import {
   addCategoryStart,
   addCategorySuccess,
@@ -41,6 +48,17 @@ export const login = async (dispatch, user) => {
 }
 //  LOGIN user endpoint
 
+//  LOGOUT user
+export const logout = async (dispatch) => {
+  dispatch(logoutStart())
+  try {
+    dispatch(logoutSuccess())
+  } catch (error) {
+    dispatch(logoutFailure())
+  }
+}
+//  LOGOUT user endpoint
+
 
 //  GET product
 export const getProducts = async (dispatch) => {
@@ -78,10 +96,10 @@ export const updateProduct = async (dispatch, product, id) => {
 }
 //  UPDATE product endpoint
 //  ADD product 
-export const addProduct = async (dispatch, id) => {
+export const addProduct = async (dispatch, product) => {
   dispatch(addProductStart())
   try {
-    const { data } = await userRequest.post(`products/new/`)
+    const { data } = await userRequest.post(`products/new/`,product)
     dispatch(addProductSuccess(data))
   } catch (error) {
     dispatch(addProductFailure())
