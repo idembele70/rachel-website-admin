@@ -16,8 +16,8 @@ function Category() {
   })
 
   useEffect(() => {
-    const { name, img, isActive } = category
-    setData({ name, img, isActive })
+    /* const { name, img, isActive } =  */
+    setData(category)
   }, [category, id])
 
   const handleChange = (e) => {
@@ -37,7 +37,7 @@ function Category() {
   const dispatch = useDispatch()
   const handleUpdate = (e) => {
     e.preventDefault()
-    if (data.img !== category.img) {
+    if (data.img) {
       const fileName = new Date().getTime() + data.img.name
       const storage = getStorage(app)
       const storageRef = ref(storage, fileName)
@@ -63,8 +63,8 @@ function Category() {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setData(d => ({ ...d, "img": downloadURL }))
-          }).finally(() => updateCategory(dispatch, data, id));
+            updateCategory(dispatch, { ...data, img: downloadURL }, id)
+          })
         }
       );
     }

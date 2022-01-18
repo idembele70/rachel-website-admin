@@ -28,7 +28,7 @@ const category = createSlice({
     ,
     updateCategorySuccess: (state, { payload }) => {
       state.isFetching = false
-      state.categories[state.categories.findIndex(category => category._id === payload._id)] = payload
+      state.categories[state.categories.findIndex(category => category._id === payload.category._id)] = payload.category
       state.error = false
     },
     updateCategoryFailure: (state) =>

@@ -99,7 +99,7 @@ export const updateProduct = async (dispatch, product, id) => {
 export const addProduct = async (dispatch, product) => {
   dispatch(addProductStart())
   try {
-    const { data } = await userRequest.post(`products/new/`,product)
+    const { data } = await userRequest.post(`products/new/`, product)
     dispatch(addProductSuccess(data))
   } catch (error) {
     dispatch(addProductFailure())
@@ -125,8 +125,10 @@ export const addCategory = async (dispatch, category) => {
 export const updateCategory = async (dispatch, newInformation, id) => {
   dispatch(updateCategoryStart())
   try {
-    const { data } = await userRequest.put(`category/${id}`, newInformation)
-    dispatch(updateCategorySuccess(data))
+    console.log(newInformation)
+    const { data } = await userRequest.put(`/category/${id}`, newInformation)
+    console.log(data)
+    dispatch(updateCategorySuccess({ category: data }))
   } catch (error) {
     dispatch(updateCategoryFailure())
   }
