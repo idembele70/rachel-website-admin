@@ -125,9 +125,7 @@ export const addCategory = async (dispatch, category) => {
 export const updateCategory = async (dispatch, newInformation, id) => {
   dispatch(updateCategoryStart())
   try {
-    console.log(newInformation)
     const { data } = await userRequest.put(`/category/${id}`, newInformation)
-    console.log(data)
     dispatch(updateCategorySuccess({ category: data }))
   } catch (error) {
     dispatch(updateCategoryFailure())

@@ -100,6 +100,9 @@
   padding: 5px;
   border-bottom: 1px solid gray;
 }
+.colorPicker {
+  margin: 5px 0;
+}
 
 .productUploadImg{
   max-width: 100px;

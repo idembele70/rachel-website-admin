@@ -7,12 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import { updateProduct } from "../../Redux/apiCalls";
 import { userRequest } from "../../requestMethod";
-import { ref,getDownloadURL, uploadBytesResumable, getStorage} from 'firebase/storage'
+import { ref, getDownloadURL, uploadBytesResumable, getStorage } from 'firebase/storage'
 import app from "../../firebase"
+import Swatches from "react-color/lib/components/swatches/Swatches";
+import styled from "styled-components";
+
+
 export default function Product() {
     const id = useLocation().pathname.split(/\//)[2]
     const dispatch = useDispatch()
-    const { title, quantity, img, description, categories, sizes, colors, price, ...others } = useSelector(state => state.product.products.find(
+    const { title, quantity, img, description, categories, sizes, colors, price } = useSelector(state => state.product.products.find(
         ({ _id }) => _id === id
     ))
     const [data, setdata] = useState({
@@ -25,7 +29,6 @@ export default function Product() {
         colors,
         price
     })
-
     const handleUpdate = (e) => {
         const { name, value, files } = e.target
         if (["categories", "sizes", "colors"].includes(name))
@@ -36,29 +39,29 @@ export default function Product() {
             const storageRef = ref(storage, fileName)
             const uploadTask = uploadBytesResumable(storageRef, files[0])
             uploadTask.on(
-              "state_changed",
-              (snapshot) => {
-                const progress =
-                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
-                switch (snapshot.state) {
-                  case "paused":
-                    console.log("Upload is paused");
-                    break;
-                  case "running":
-                    console.log("Upload is running");
-                    break;
-                  default:
+                "state_changed",
+                (snapshot) => {
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                    switch (snapshot.state) {
+                        case "paused":
+                            console.log("Upload is paused");
+                            break;
+                        case "running":
+                            console.log("Upload is running");
+                            break;
+                        default:
+                    }
+                },
+                (error) => {
+                    console.error("Error in New product file Line 36", error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setdata(d => ({ ...d, [name]: downloadURL }))
+                    });
                 }
-              },
-              (error) => {
-                console.error("Error in New product file Line 36", error);
-              },
-              () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setdata(d => ({ ...d, [name]: downloadURL }))
-                });
-              }
             );
         }
         else
@@ -90,6 +93,28 @@ export default function Product() {
         }
         getStats()
     }, [MONTHS, id])
+
+    const handleAddColor = ({ hex }) => {
+        if (data.colors.includes(hex))
+            setdata({ ...data, colors: data.colors.filter(color => color !== hex) })
+        else
+            setdata({ ...data, colors: [...data.colors, hex] })
+    }
+
+    const handleDeleteColor = (color) => {
+        setdata({ ...data, colors: data.colors.filter(c => c !== color) })
+    }
+
+    const colorSx = {
+        height: 10,
+        width: 10,
+        borderRadius: "50%",
+        cursor: "pointer",
+        margin: 5,
+        border: "1px solid lightgray"
+        }
+
+
     return (
         <div className="product">
             <div className="productTitleContainer">
@@ -142,12 +167,13 @@ export default function Product() {
                         <textarea name="sizes" cols="5" rows="3" value={data.sizes} onChange={handleUpdate} ></textarea>
                     </div>
                     <div className="productFormCenter">
-                        <label>couleurs</label>
-                        <textarea name="colors" cols="5" rows="3" value={data.colors} onChange={handleUpdate} ></textarea>
+                        {/*  <label>couleurs</label>
+                        <textarea name="colors" cols="5" rows="3" value={data.colors} onChange={handleUpdate} ></textarea> */}
                         <label>prix</label>
                         <input name="price" type="number" value={data.price} onChange={handleUpdate} />
                         <label>Quantité</label>
                         <input name="quantity" type="number" value={data.quantity} onChange={handleUpdate} />
+                        <Swatches name="colors" onChange={handleAddColor} className="colorPicker" height={150} />
                     </div>
                     <div className="productFormRight">
                         <div className="productUpload">
@@ -156,6 +182,14 @@ export default function Product() {
                                 <Publish />
                             </label>
                             <input type="file" id="file" name="img" onChange={handleUpdate} style={{ display: "none" }} />
+                        </div>
+                        <div>
+                            <h4>Couleurs Disponible</h4>
+                            <div style={{ display: "flex" }}>
+                                {data?.colors.map(
+                                    color => <div key={color} style={{...colorSx, backgroundColor:color}} onClick={() => handleDeleteColor(color)} />
+                                )}
+                            </div>
                         </div>
                         <button className="productButton" onClick={onUpdataData}>Update</button>
                     </div>
